@@ -1,5 +1,8 @@
 # Python GA for Uncertainty Analysis
 
+## UPDATE
+Update currently in progress to move this to python 3 and refactor the code for better readability.
+
 ## CONTENT
 PyResSim uses a modified genetic algorithm with objective functions for uncertainty analysis. 
 
@@ -14,7 +17,7 @@ The opm-simulators module is Designed to run on Linux platforms. So, this progra
 ## REQUIREMENTS
 Opm-simulator (opm-porject.org or opm-project.org/?page_id=245)
 ecl (https://github.com/equinor/ecl)
-Python 3
+Python 2
 
 ## USE
 Template folder hold the files that build the case files. 
@@ -23,3 +26,12 @@ Template folder hold the files that build the case files.
 	time.include stores the time information in the same way as the eclipse file
 	rock_types.csv is the permeability and porosity of the rock types that can be selected during a simulation run
 	standard_cases contains cases that should be included as generation zero
+	
+Example run "python pyResGen.py -m test1 -g 3 -p 4 -r 0.05 -t 5 -d 2 -n 0.1"
+
+3 generations per objective function (3 for to find history match, 3 to find NPV extremes)
+4 pairings per generation
+5% chance for mutation
+5 top individuals tracked
+2 genes must be different to be included in the top individual list
+10% discount rate used for NPV
