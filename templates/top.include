@@ -1,0 +1,90 @@
+-- This reservoir simulation deck is made available under the Open Database
+-- License: http://opendatacommons.org/licenses/odbl/1.0/. Any rights in
+-- individual contents of the database are licensed under the Database Contents
+-- License: http://opendatacommons.org/licenses/dbcl/1.0/
+
+-- Copyright (C) 2015 Statoil
+
+-- This simulation is based on the data given in 
+-- 'Comparison of Solutions to a Three-Dimensional
+-- Black-Oil Reservoir Simulation Problem' by Aziz S. Odeh,
+-- Journal of Petroleum Technology, January 1981
+
+-- NOTE: This deck is currently not supported by the OPM
+-- simulator flow due to lack of support for DRSDT.
+
+---------------------------------------------------------------------------
+------------------------ SPE1 - CASE 1 ------------------------------------
+---------------------------------------------------------------------------
+
+RUNSPEC
+-- -------------------------------------------------------------------------
+
+TITLE
+   SPE1 - CASE 1
+
+DIMENS
+   10 10 3 /
+
+-- The number of equilibration regions is inferred from the EQLDIMS
+-- keyword.
+EQLDIMS
+/
+
+-- The number of PVTW tables is inferred from the TABDIMS keyword;
+-- when no data is included in the keyword the default values are used.
+TABDIMS
+/
+
+OIL
+GAS
+WATER
+DISGAS
+-- As seen from figure 4 in Odeh, GOR is increasing with time,
+-- which means that dissolved gas is present
+
+FIELD
+
+START
+   1 'JAN' 2015 /
+
+WELLDIMS
+-- Item 1: maximum number of wells in the model
+-- 	   - there are two wells in the problem; injector and producer
+-- Item 2: maximum number of grid blocks connected to any one well
+-- 	   - must be one as the wells are located at specific grid blocks
+-- Item 3: maximum number of groups in the model
+-- 	   - we are dealing with only one 'group'
+-- Item 4: maximum number of wells in any one group
+-- 	   - there must be two wells in a group as there are two wells in total
+   2 1 1 2 /
+
+UNIFOUT
+
+GRID
+
+-- The INIT keyword is used to request an .INIT file. The .INIT file
+-- is written before the simulation actually starts, and contains grid
+-- properties and saturation tables as inferred from the input
+-- deck. There are no other keywords which can be used to configure
+-- exactly what is written to the .INIT file.
+INIT
+
+
+-- -------------------------------------------------------------------------
+NOECHO
+
+DX 
+-- There are in total 300 cells with length 1000ft in x-direction	
+   	300*1000 /
+DY
+-- There are in total 300 cells with length 1000ft in y-direction	
+	300*1000 /
+DZ
+-- The layers are 20, 30 and 50 ft thick, in each layer there are 100 cells
+	100*20 100*30 100*50 /
+
+TOPS
+-- The depth of the top of each grid block
+	100*8325 /
+
