@@ -1,7 +1,7 @@
 # Python GA for Uncertainty Analysis
 
 ## UPDATE
-Update currently in progress to move this to python 3 and refactor the code for better readability.
+Update currently in progress to move this to Python 3 and refactor the code for better readability. There is an issue with the current version where the time steps of the historical flowrates are not lining up with the flow rates from FLOW, this will also be corrected in the Python 3 version.
 
 ## CONTENT
 PyResSim uses a modified genetic algorithm with objective functions for uncertainty analysis. 
