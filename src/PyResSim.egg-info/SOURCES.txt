@@ -1,0 +1,6 @@
+README.md
+setup.py
+src/PyResSim.egg-info/PKG-INFO
+src/PyResSim.egg-info/SOURCES.txt
+src/PyResSim.egg-info/dependency_links.txt
+src/PyResSim.egg-info/top_level.txt
