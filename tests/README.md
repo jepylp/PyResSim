@@ -1,4 +1,4 @@
-#For testing on ubuntu 
+# For testing on ubuntu 
 This ensures that the import paths work without having to set a path
 Otherwise the file would require:
 
@@ -9,10 +9,10 @@ For the imports to work correctly from the source files and pylint throws a warn
 
 so:
 
-#Clone the repo
+# Clone the repo
 git clone -b v2 https://github.com/jepylp/PyResSim.git
 
-#Install 
+# Install 
 pip3 install --editable .
 
 
