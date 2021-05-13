@@ -1,5 +1,5 @@
 '''
-Author:       James Porter 3140786
+Author:       James Porter
 Supervisor:   Greg Walker, MA PhD (Cantab)
 
 Gene generator for genetic algorithm
