@@ -1,13 +1,14 @@
 '''
-Author:       James Porter 3140786
+Author:       James Porter
 
 Testing gene generation, currently only contains the int generator
 '''
+
 import unittest
 import gene_generator
 
 class GeneGeneratorTest(unittest.TestCase):
-    '''Test the gen e generator, currently only generates int but can be
+    '''Test the gene generator, currently only generates int but can be
     expanded on later.'''
     gene_size = 100
     rock_types = 2
