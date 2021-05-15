@@ -20,7 +20,7 @@ class FlowrateTest(unittest.TestCase):
         self.assertEqual(self.test.eom_time, self.time, 'Time difference')
 
     def test_flowrate(self):
-        '''Test Average Flowrate'''
+        '''Test average flowrate'''
         self.assertEqual(self.test.avg_flowrate, self.avg_flowrate,
             'Average flowrate difference')
 
