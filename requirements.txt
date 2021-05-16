@@ -1,3 +1,1 @@
-python 3
-opm-porject.org simulator
-elc - https://github.com/equinor/ecl
+ecl
