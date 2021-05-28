@@ -13,15 +13,15 @@ class FlowrateTest(unittest.TestCase):
     # Feb first year, 4000 flowrate
     time = 0.16164383561643836
     avg_flowrate = 4000
-    test = flowrate.Flowrate(time, avg_flowrate)
+    flowrate_test = flowrate.Flowrate(time, avg_flowrate)
 
     def test_time(self):
-        '''Test time'''
-        self.assertEqual(self.test.eom_time, self.time, 'Time difference')
+        ''' Test time '''
+        self.assertEqual(self.flowrate_test.eom_time, self.time, 'Time difference')
 
     def test_flowrate(self):
-        '''Test average flowrate'''
-        self.assertEqual(self.test.avg_flowrate, self.avg_flowrate,
+        ''' Test average flowrate '''
+        self.assertEqual(self.flowrate_test.avg_flowrate, self.avg_flowrate,
             'Average flowrate difference')
 
 if __name__ == '__main__':
