@@ -197,10 +197,3 @@ class Reader:
         '''
         idx = (np.abs(array - value)).argmin()
         return idx
-
-def main():
-
-    pass
-
-if __name__ == '__main__':
-    main()

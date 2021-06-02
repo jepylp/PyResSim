@@ -9,6 +9,7 @@ To be used with pyResSim.
 
 from pathlib import Path        # Converts file/folder path to which ever os
 from dataclasses import dataclass
+from flowrate import Flowrate
 
 @dataclass
 class Individual:
@@ -21,7 +22,7 @@ class Individual:
     generation: int                 # Geneation this individual belongs to
     parents: str = 'none'           # Array to store the parents
     case_file_path: Path = Path('./')   # file path for case
-    flowrates: float = 0            # store the flowrates from flow
+    flowrates: Flowrate = Flowrate(0,0) # store the flowrates from flow
     fitness: float = 0              # Fitness value determines the likelyhood of
                                     # selection
     inverse_fitness: float = 0      # 1 / Fitness
