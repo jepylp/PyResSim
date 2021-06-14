@@ -35,7 +35,7 @@ def npv (individual_flowrates: Flowrate, rate: float) -> float:
 
     for step in individual_flowrates:
 
-        return_npv = return_npv + ((step.avg_flowrate / (1 + rate) ** step.eom_time))
+        return_npv = return_npv + (step.avg_flowrate / (1 + rate) ** step.eom_time)
 
     return return_npv
 
