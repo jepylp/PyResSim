@@ -29,8 +29,6 @@ class CalcTest(unittest.TestCase):
     for i in range(1, 13, 1):
         npv_test_flowrates.append(Flowrate(eom_time= i/12.0, avg_flowrate= 5000.0))
 
-    print(npv_test_flowrates)
-
     def test_rms(self):
         '''RMS test'''
         self.assertEqual(
