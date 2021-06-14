@@ -7,6 +7,7 @@ Determine rms, npv, convert days to flowtime, and normalize fitness values
 import unittest
 import calculator
 from individual import Individual
+from flowrate import Flowrate
 
 class CalcTest(unittest.TestCase):
     '''Calculator Test'''
@@ -23,6 +24,13 @@ class CalcTest(unittest.TestCase):
     monthly_days = [31,28,31,30,31,30,31,31,30,31,30,31]
     days_per_year = 365
 
+    npv_test_flowrates = []
+
+    for i in range(1, 13, 1):
+        npv_test_flowrates.append(Flowrate(eom_time= i/12.0, avg_flowrate= 5000.0))
+
+    print(npv_test_flowrates)
+
     def test_rms(self):
         '''RMS test'''
         self.assertEqual(
@@ -33,9 +41,9 @@ class CalcTest(unittest.TestCase):
 
     def test_npv(self):
         '''NPV test'''
-        self.assertAlmostEqual(
-            calculator.npv(self.individual_flowrates, self.individual_time, self.rate),
-            34068.46,
+        self.assertEqual(
+            round(calculator.npv(self.npv_test_flowrates, self.rate), 2),
+            57002.44,
             'NPV error'
         )
 

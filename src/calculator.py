@@ -6,6 +6,7 @@ determine the npv and abs difference
 '''
 
 import numpy as np
+from flowrate import Flowrate
 
 
 def rms (historical_flowrates, individual_flowrates) -> float:
@@ -22,7 +23,7 @@ def rms (historical_flowrates, individual_flowrates) -> float:
 
     return np.sqrt(((historical_flowrates - individual_flowrates) ** 2).mean())
 
-def npv (individual_flowrates, individual_time, rate: float) -> float:
+def npv (individual_flowrates: Flowrate, rate: float) -> float:
     '''
     Calculate npv of case given a discount rate, case time stamps are used
     '''
@@ -32,9 +33,9 @@ def npv (individual_flowrates, individual_time, rate: float) -> float:
     # npv = future value / (1 + rate) ^ time
     # sum up all net present values for the total npv of the well
 
-    for step in individual_time:
+    for step in individual_flowrates:
 
-        return_npv = return_npv + (individual_flowrates[step] / (1 + rate) ** individual_time[step])
+        return_npv = return_npv + ((step.avg_flowrate / (1 + rate) ** step.eom_time))
 
     return return_npv
 
