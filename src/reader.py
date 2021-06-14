@@ -172,8 +172,6 @@ class Reader:
 
         return_flowrates = []
 
-        
-
         # Find a match for each step in the time step
         for step in time_steps:
 

@@ -1,0 +1,15 @@
+2021/06/11 09:12:31 AM - INFO - Logging started
+2021/06/11 09:12:31 AM - DEBUG - model: test_model
+2021/06/11 09:12:31 AM - DEBUG - generation: 2
+2021/06/11 09:12:31 AM - DEBUG - gene size: 25
+2021/06/11 09:12:31 AM - DEBUG - first gen size: 20
+2021/06/11 09:12:31 AM - DEBUG - parings: 10
+2021/06/11 09:12:31 AM - DEBUG - mutation rate: 0.1
+2021/06/11 09:12:31 AM - DEBUG - min diff: 2
+2021/06/11 09:12:31 AM - DEBUG - npv discount rate: 0.1
+2021/06/11 09:12:31 AM - DEBUG - log file: log.txt
+2021/06/11 09:12:31 AM - DEBUG - csv file: output.csv
+2021/06/11 09:12:31 AM - DEBUG - csv generations: generations.csv
+2021/06/11 09:12:31 AM - DEBUG - rock types path: templates/rock_types.csv
+2021/06/11 09:12:31 AM - DEBUG - [['0', 'poor', '20', '0.15'], ['1', 'good', '500', '0.3']]
+2021/06/11 09:12:31 AM - INFO - Generating Random Population, Pop size: 20

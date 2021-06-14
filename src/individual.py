@@ -25,10 +25,11 @@ class Individual:
     flowrates: Flowrate = Flowrate(0,0) # store the flowrates from flow
     fitness: float = 0              # Fitness value determines the likelyhood of
                                     # selection
-    inverse_fitness: float = 0      # 1 / Fitness
+    inverse_fitness: float = 0      # Total fitness for population / Fitness
     normalized_fitness: float = 0   # used to determine which parents for
                                     # the next generation. can use fitness,
                                     # or NPV
+    cnf: float = 0                  # Cumulative Normalize Fitness
     run: bool = True                # Should this case be run
     npv: float = 0                  # NPV from case run in flow
     abs_difference: float = 0       # Distance value is away from average

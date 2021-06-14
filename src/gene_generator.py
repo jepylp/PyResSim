@@ -1,7 +1,6 @@
 '''
 Author:       James Porter
 Supervisor:   Greg Walker, MA PhD (Cantab)
-
 Gene generator for genetic algorithm
 Currently only the integer generator is implemented
 '''
@@ -17,6 +16,6 @@ def generate_genes_int(gene_size:int, rock_types: int):
 
     # use _ for unsude integer in for loop
     for _ in range(gene_size):
-        genes.append(random.randint(0, rock_types - 1))
+        genes.append(random.randint(0, len(rock_types) - 1))
 
     return genes
