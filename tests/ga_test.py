@@ -50,4 +50,27 @@ class GATest(unittest.TestCase):
 
         # Will have to check log for the random value that and selected case
 
-    
+    def test_pairing(self):
+        '''Test Pairing'''
+
+        ind1 = Individual(
+            genes=[1,1,1,1,1],
+            case=1,
+            generation=1,
+            parents='none'
+        )
+
+        ind2 = Individual(
+            genes=[0,0,0,0,0],
+            case=2,
+            generation=1,
+            parents='none'
+        )
+
+        parents = [ind1, ind2]
+
+        possible_pairings = [[1,0,0,0,0],[1,1,0,0,0],[1,1,1,0,0],[1,1,1,1,0]]
+
+        self.assertIn(self.gen_alg.pairings(parents), possible_pairings, 'Pairing error')
+
+
