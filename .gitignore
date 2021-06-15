@@ -1,2 +1,3 @@
 test_model/
 __pycache__/
+*.log
