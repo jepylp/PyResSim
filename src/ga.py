@@ -128,4 +128,4 @@ class Genetic_Algorithm:
                 logging.info('Selected - Gen: %s Case: %s' % (ind.generation, ind.case))
                 return ind
 
-        
+    
