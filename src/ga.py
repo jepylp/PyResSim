@@ -21,6 +21,7 @@ from reader import Reader
 from ecl.summary import EclSum
 from individual import Individual
 import gene_generator
+import calculator
 
 class Genetic_Algorithm:
 
@@ -91,18 +92,23 @@ class Genetic_Algorithm:
         # Initialize the population list
         self.population = []
 
-    def generate_population(self, pop_size):
+    def generate_population(self, pop_size, generation):
         '''
         Generate the specified number of individuals with the required number of genes
         '''
 
         logging.info('Generating Random Population, Pop size: %s' % pop_size)
 
-        generation = []
-        for x in range(self.first_generation_size):
-            generation.append(gene_generator.generate_genes_int(self.gene_size, self.rock_types))
+        for case_number in range(self.first_generation_size):
+            self.population.append(
+                Individual(
+                    genes=gene_generator.generate_genes_int(self.gene_size, self.rock_types),
+                    case=case_number,
+                    generation=generation,
+                    parents='none'
+                )
+            )
 
-        return generation
 
     def selection(self):
         '''
@@ -113,25 +119,13 @@ class Genetic_Algorithm:
         value = random.random()
         logging.debug('Random value for slection: %s' % value)
 
-        running_normalized_fitness = 0
+        # Set the cumaltive inverse fitness for the population
+        calculator.normalize_fitness(self.population)
 
-        for generation in self.population:
-            for ind in generation:
+        for ind in self.population:
 
-                # Running total of the normailized fitness, full total
-                # should be 1.0 but there are some rounding issues
-                running_normalized_fitness = (running_normalized_fitness +
-                    ind.normalized_fitness)
+            if value < ind.cnf:
+                logging.info('Selected - Gen: %s Case: %s' % (ind.generation, ind.case))
+                return ind
 
-                # Print the running total of the normalized fitness
-                logging.debug('Gen: %s Case: %s Running_normalized_fitness: %s'
-                    % (ind.generation, ind.case, running_normalized_fitness)
-                )
-
-                # if the value is less than the running total then use
-                # the current individual
-                if value < running_normalized_fitness:
-                    logging.info('Selected - Gen: %s Case: %s'
-                        % (ind.gen, ind.case)
-                    )
-                    return (ind)
+    

@@ -81,3 +81,4 @@ def normalize_fitness(population):
     for ind in population:
         ind.normalized_fitness = ind.inverse_fitness / total_inverse_fitness
         running_cnf = running_cnf + ind.normalized_fitness
+        ind.cnf = running_cnf
