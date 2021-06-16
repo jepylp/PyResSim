@@ -129,3 +129,20 @@ class Genetic_Algorithm:
                 return ind
 
     
+    def pairing(self, parents_genes):
+        '''
+        return two children from the two parents
+        '''
+        offspring_genes = []  # Initialize
+
+        # pivot point can't be in position 0 or the last position
+        pivot_point = random.randint(1,len(parents_genes[0]) - 2)
+
+        logging.debug('pivot: %s' % pivot_point)
+
+        offspring_genes.append(parents_genes[0][0:pivot_point] + parents_genes[1][pivot_point:])
+        offspring_genes.append(parents_genes[1][0:pivot_point] + parents_genes[0][pivot_point:])
+
+        logging.info('Offspring: %s' % offspring_genes)
+
+        return offspring_genes

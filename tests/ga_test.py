@@ -39,7 +39,7 @@ class GATest(unittest.TestCase):
     def test_selection(self):
         '''Test selection'''
 
-        # make each normalized fitness 0.05 so that the total is 1.00
+        # make each normalized fitness 0.05 so that the total is 0.5
 
         for ind in self.gen_alg.population:
             ind.fitness = 5
@@ -67,10 +67,14 @@ class GATest(unittest.TestCase):
             parents='none'
         )
 
-        parents = [ind1, ind2]
+        parents = [ind1.genes, ind2.genes]
 
         possible_pairings = [[1,0,0,0,0],[1,1,0,0,0],[1,1,1,0,0],[1,1,1,1,0]]
 
-        self.assertIn(self.gen_alg.pairings(parents), possible_pairings, 'Pairing error')
+        children = self.gen_alg.pairing(parents)
+
+        self.assertEqual(len(children), 2, 'Number of children generate error')
+
+        self.assertIn(children[0], possible_pairings, 'Pairing error')
 
 
