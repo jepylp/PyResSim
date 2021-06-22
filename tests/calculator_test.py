@@ -59,8 +59,8 @@ class CalcTest(unittest.TestCase):
                 'Convert days to flowtime error'
             )
 
-    def test_normalize_fitness(self):
-        '''Normailze Fitness test'''
+    def test_rms_normalize_fitness(self):
+        '''Normailze RMS Fitness test'''
 
         pop = [Individual([1,0,1,0,1], 1, 0, 'none', 'none'),
         Individual([1,0,1,0,1], 2, 0, 'none', 'none'),
@@ -74,9 +74,31 @@ class CalcTest(unittest.TestCase):
         pop[3].fitness = 20
         pop[4].fitness = 50
 
-        calculator.normalize_fitness(pop)
+        calculator.rms_normalize_fitness(pop)
 
         #for ind in pop:
         #    print(ind)
 
-        self.assertEqual(pop[0].inverse_fitness, 20.0, 'Normalize fitness error')
+        self.assertEqual(pop[0].inverse_fitness, 20.0, 'Normalize RMS fitness error')
+
+    def test_npv_normalized_fitness(self):
+        '''Normalize NPV Fitness test'''
+
+        pop = [Individual([1,0,1,0,1], 1, 0, 'none', 'none'),
+        Individual([1,0,1,0,1], 2, 0, 'none', 'none'),
+        Individual([1,0,1,0,1], 3, 0, 'none', 'none'),
+        Individual([1,0,1,0,1], 4, 0, 'none', 'none'),
+        Individual([1,0,1,0,1], 5, 0, 'none', 'none')]
+
+        pop[0].npv =  5
+        pop[1].npv = 10
+        pop[2].npv = 15
+        pop[3].npv = 25
+        pop[4].npv = 45
+
+        calculator.npv_normalize_fitness(pop)
+
+        for ind in pop:
+            print(ind)
+
+        self.assertEqual(pop[0].inverse_fitness, 4.0, 'Normalize NPV fitness error')

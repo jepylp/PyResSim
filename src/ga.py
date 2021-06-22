@@ -119,9 +119,6 @@ class Genetic_Algorithm:
         value = random.random()
         logging.debug('Random value for slection: %s' % value)
 
-        # Set the cumaltive inverse fitness for the population
-        calculator.normalize_fitness(self.population)
-
         for ind in self.population:
 
             if value < ind.cnf:
@@ -138,7 +135,7 @@ class Genetic_Algorithm:
         # pivot point can't be in position 0 or the last position
         pivot_point = random.randint(1,len(parents_genes[0]) - 2)
 
-        logging.debug('pivot: %s' % pivot_point)
+        logging.debug('Pivot: %s' % pivot_point)
 
         offspring_genes.append(parents_genes[0][0:pivot_point] + parents_genes[1][pivot_point:])
         offspring_genes.append(parents_genes[1][0:pivot_point] + parents_genes[0][pivot_point:])
@@ -146,3 +143,91 @@ class Genetic_Algorithm:
         logging.info('Offspring: %s' % offspring_genes)
 
         return offspring_genes
+
+    def mutation(self, genes):
+        '''
+        return gene set with a single gene modified
+        '''
+        if random.random() < self.mutation_rate:
+
+            # Select gene from position 1 to second last
+            mutated_gene = random.randint(1, len(genes) - 2)
+            logging.info('Mutating: %s' % mutated_gene)
+
+            # Choose a random selection from the rock types until a
+            # different one is found
+            mutation = genes[mutated_gene]
+            runs = 0
+            while mutation == genes[mutated_gene]:
+                runs = runs + 1
+                mutation = random.randint(0, len(self.rock_types) - 1)
+
+            genes[mutated_gene] = mutation
+
+            logging.debug('Mutation runs: %s Returning: %s', runs, genes)
+        return genes
+
+    def next_gen(self, mode):
+        '''
+        Generate and return the next generation
+        mode is set to either fitness, npv, or npv_extremes
+        '''
+
+        # set fitness based on mode
+        if mode is 'rms':
+            calculator.rms_normalize_fitness(self.population)
+        
+
+        # increment generation counter
+        self.generation_counter = self.generation_counter + 1
+
+        # starting case number for this generation
+        case = 0
+
+        # Generations will generate the same number of individuals each
+        # generation rounded down. Two pairs per set of parents.
+        for i in range(0, self.pairings):
+            parents = [] # initialize blank parent list for pairing
+
+            # Select the parents
+            parents.append(self.selection())
+            parents.append(self.selection())
+
+            # Make sure parents are different
+            runs = 0
+            while (parents[0] == parents[1] and runs < 50):
+                runs = runs + 1
+                logging.debug('matching, find another')
+                del parents[-1]
+                parents.append(self.selection())
+
+            logging.info('Parent selction runs: %s Parents: %s', runs, parents)
+
+            parents_genes = [parents[0][0].genes, parents[1][0].genes]
+
+            # append the parents information to the child
+            parents_text = ('gen' + str(parents[0][1]) + 'case'
+                + str(parents[0][0].case)    # First parent
+                + ' gen' + str(parents[1][1]) + 'case'
+                + str(parents[1][0].case))  # Second parent
+
+            # Get the children
+            children = self.pairing(parents_genes)
+            logging.info('Children: %s', children)
+
+            # Mutate children and create Individual
+            logging.debug('----children----')
+            for child_genes in children:
+
+                row = self.mutation(row)
+                ind = Individual(
+                    genes=child_genes,
+                    case=case,
+                    generation=self.generation_counter,
+                    parents=parents_text
+                )
+                self.population.append(ind)
+                case = case + 1 # Increase case number for child
+                logging.debug(str(ind))
+
+            logging.debug('--end children--')
