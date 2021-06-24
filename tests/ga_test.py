@@ -17,7 +17,7 @@ class GATest(unittest.TestCase):
         generations= 2,
         gene_size= 5,
         first_generation_size=10,
-        pairings=5,
+        pairings=2,
         mutation_rate=0.1,
         min_diff= 1,
         npv_discount_rate= 0.1
@@ -84,8 +84,6 @@ class GATest(unittest.TestCase):
         mutation_occured = False
         counter = 0
 
-        print([1,1] == [1,1])
-
         # Run test 100 times to see if any genes are mutated
         while (counter < 100 and mutation_occured is False):
             counter = counter + 1
@@ -95,51 +93,48 @@ class GATest(unittest.TestCase):
 
         self.assertNotEqual(genes, starting_genes, 'Mutation error')
 
-        print('Mutation attempts: %s' % counter)
-
     def test_next_gen(self):
         '''Test Next Generation'''
 
         ind1 = Individual(
             genes=[1,1,1,1,1],
             case=1,
-            generation=2,
+            generation=0,
             parents='none'
         )
 
         ind2 = Individual(
             genes=[0,0,0,0,0],
             case=2,
-            generation=2,
+            generation=0,
             parents='none'
         )
 
         ind3 = Individual(
-            genes=[0,1,0,0,0],
-            case=3,
-            generation=2,
-            parents='none'
-        )
-
-        ind4 = Individual(
             genes=[0,0,1,0,0],
-            case=4,
-            generation=2,
+            case=3,
+            generation=0,
             parents='none'
         )
 
-        ind5 = Individual(
-            genes=[0,0,0,1,0],
-            case=5,
-            generation=2,
-            parents='none'
-        )
+        sample_pop = [ind1, ind2, ind3]
 
-        sample_pop = [ind1, ind2, ind3, ind4, ind5]
-
+        # Equal chance of selection
         for ind in sample_pop:
             ind.fitness = 5
 
         self.gen_alg.population = sample_pop
 
-        selected = self.gen_alg.selection()
+        self.gen_alg.next_gen('rms')
+
+        generation = []
+
+        for ind in self.gen_alg.population:
+            if ind.generation == 1:
+                generation.append(ind)
+
+        self.assertEqual(len(self.gen_alg.population), 7, 'Wrong amount in population')
+
+        print()
+        for ind in self.gen_alg.population:
+            print (ind)

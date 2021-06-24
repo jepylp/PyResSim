@@ -174,9 +174,10 @@ class Genetic_Algorithm:
         '''
 
         # set fitness based on mode
-        if mode is 'rms':
+        if mode == 'rms':
             calculator.rms_normalize_fitness(self.population)
-        
+        elif mode == 'npv':
+            calculator.npv_normalize_fitness(self.population)
 
         # increment generation counter
         self.generation_counter = self.generation_counter + 1
@@ -193,7 +194,7 @@ class Genetic_Algorithm:
             parents.append(self.selection())
             parents.append(self.selection())
 
-            # Make sure parents are different
+            # Make sure parents are different, try up to 50 times
             runs = 0
             while (parents[0] == parents[1] and runs < 50):
                 runs = runs + 1
@@ -203,13 +204,13 @@ class Genetic_Algorithm:
 
             logging.info('Parent selction runs: %s Parents: %s', runs, parents)
 
-            parents_genes = [parents[0][0].genes, parents[1][0].genes]
+            parents_genes = [parents[0].genes, parents[1].genes]
 
             # append the parents information to the child
-            parents_text = ('gen' + str(parents[0][1]) + 'case'
-                + str(parents[0][0].case)    # First parent
-                + ' gen' + str(parents[1][1]) + 'case'
-                + str(parents[1][0].case))  # Second parent
+            parents_text = ('gen' + str(parents[0].generation) + 'case'
+                + str(parents[0].case)    # First parent
+                + ' gen' + str(parents[1].generation) + 'case'
+                + str(parents[1].case))  # Second parent
 
             # Get the children
             children = self.pairing(parents_genes)
@@ -219,7 +220,7 @@ class Genetic_Algorithm:
             logging.debug('----children----')
             for child_genes in children:
 
-                row = self.mutation(row)
+                child_genes = self.mutation(child_genes)
                 ind = Individual(
                     genes=child_genes,
                     case=case,
